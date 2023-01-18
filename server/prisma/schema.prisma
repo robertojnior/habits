@@ -16,7 +16,8 @@ model Goal {
 
   created_at DateTime @default(now())
 
-  recurrences Recurrence[]
+  recurrences  Recurrence[]
+  dailyRecords DailyRecord[]
 
   @@map("goals")
 }
@@ -33,4 +34,18 @@ model Recurrence {
 
   @@unique([week_day, goal_id])
   @@map("recurrences")
+}
+
+model DailyRecord {
+  id BigInt @id @default(autoincrement())
+
+  goal_id  String
+  week_day Int
+
+  created_at DateTime @default(now())
+
+  goal Goal @relation(fields: [goal_id], references: [id])
+
+  @@unique([week_day, goal_id])
+  @@map("daily_records")
 }
