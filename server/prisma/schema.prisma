@@ -16,5 +16,21 @@ model Goal {
 
   created_at DateTime @default(now())
 
+  recurrences Recurrence[]
+
   @@map("goals")
+}
+
+model Recurrence {
+  id BigInt @id @default(autoincrement())
+
+  goal_id  String
+  week_day Int
+
+  created_at DateTime @default(now())
+
+  goal Goal @relation(fields: [goal_id], references: [id])
+
+  @@unique([week_day, goal_id])
+  @@map("recurrences")
 }
