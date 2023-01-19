@@ -16,7 +16,7 @@ export async function habits(app: FastifyInstance) {
     const endOfTheDay = dayjs(date).endOf('day').toDate()
     const week_day = dayjs(date).get('day') + 1
 
-    const habits = await prisma.goal.findMany({
+    const habits = await prisma.habit.findMany({
       where: {
         created_at: {
           lte: endOfTheDay
@@ -47,7 +47,7 @@ export async function habits(app: FastifyInstance) {
 
     const { description, recurrences } = requestBodySchema.parse(request.body)
 
-    const habit = await prisma.goal.create({
+    const habit = await prisma.habit.create({
       data: {
         description,
         recurrences: { create: recurrences.map((week_day) => ({ week_day })) }

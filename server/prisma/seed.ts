@@ -8,10 +8,10 @@ async function main() {
     prisma.recurrence.deleteMany()
   ])
 
-  await prisma.goal.deleteMany()
+  await prisma.habit.deleteMany()
 
   await Promise.all([
-    prisma.goal.create({
+    prisma.habit.create({
       data: {
         description: 'Walk the Dog',
         recurrences: {
@@ -20,7 +20,7 @@ async function main() {
       }
     }),
 
-    prisma.goal.create({
+    prisma.habit.create({
       data: {
         description: 'Go to the Gym',
         recurrences: {
@@ -39,7 +39,7 @@ async function main() {
       }
     }),
 
-    prisma.goal.create({
+    prisma.habit.create({
       data: {
         description: 'Drink Water',
         recurrences: {

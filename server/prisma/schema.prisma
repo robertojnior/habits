@@ -15,7 +15,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Goal {
+model Habit {
   id          String @id @default(uuid())
   description String
 
@@ -24,33 +24,33 @@ model Goal {
   recurrences  Recurrence[]
   dailyRecords DailyRecord[]
 
-  @@map("goals")
+  @@map("habits")
 }
 
 model Recurrence {
   id Int @id @default(autoincrement())
 
-  goal_id  String
+  habit_id String
   week_day Int
 
   created_at DateTime @default(now())
 
-  goal Goal @relation(fields: [goal_id], references: [id])
+  habit Habit @relation(fields: [habit_id], references: [id])
 
-  @@unique([week_day, goal_id])
+  @@unique([week_day, habit_id])
   @@map("recurrences")
 }
 
 model DailyRecord {
   id Int @id @default(autoincrement())
 
-  goal_id  String
+  habit_id String
   week_day Int
 
   created_at DateTime @default(now())
 
-  goal Goal @relation(fields: [goal_id], references: [id])
+  habit Habit @relation(fields: [habit_id], references: [id])
 
-  @@unique([week_day, goal_id])
+  @@unique([week_day, habit_id])
   @@map("daily_records")
 }
