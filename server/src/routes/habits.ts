@@ -5,7 +5,7 @@ import { z } from 'zod'
 
 import { prisma } from '../db/prisma'
 
-export async function goals(app: FastifyInstance) {
+export async function habits(app: FastifyInstance) {
   app.get('/', async (request, reply) => {
     const queryParamsSchema = z.object({
       date: z.coerce.date()
@@ -16,7 +16,7 @@ export async function goals(app: FastifyInstance) {
     const endOfTheDay = dayjs(date).endOf('day').toDate()
     const week_day = dayjs(date).get('day') + 1
 
-    const goals = await prisma.goal.findMany({
+    const habits = await prisma.goal.findMany({
       where: {
         created_at: {
           lte: endOfTheDay
@@ -36,7 +36,7 @@ export async function goals(app: FastifyInstance) {
       }
     })
 
-    return reply.header('X-Total-Count', goals.length).send(goals)
+    return reply.header('X-Total-Count', habits.length).send(habits)
   })
 
   app.post('/', async (request, reply) => {
@@ -47,13 +47,13 @@ export async function goals(app: FastifyInstance) {
 
     const { description, recurrences } = requestBodySchema.parse(request.body)
 
-    const goal = await prisma.goal.create({
+    const habit = await prisma.goal.create({
       data: {
         description,
         recurrences: { create: recurrences.map((week_day) => ({ week_day })) }
       }
     })
 
-    return reply.status(201).send(goal)
+    return reply.status(201).send(habit)
   })
 }

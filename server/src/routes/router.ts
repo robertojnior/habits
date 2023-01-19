@@ -1,7 +1,7 @@
 import type { FastifyInstance } from 'fastify'
 
-import { goals } from './goals'
+import { habits } from './habits'
 
 export async function routes(app: FastifyInstance) {
-  app.register(goals, { prefix: '/goals' })
+  app.register(habits, { prefix: '/habits' })
 }
