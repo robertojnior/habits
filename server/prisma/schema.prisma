@@ -28,7 +28,7 @@ model Goal {
 }
 
 model Recurrence {
-  id BigInt @id @default(autoincrement())
+  id Int @id @default(autoincrement())
 
   goal_id  String
   week_day Int
@@ -42,7 +42,7 @@ model Recurrence {
 }
 
 model DailyRecord {
-  id BigInt @id @default(autoincrement())
+  id Int @id @default(autoincrement())
 
   goal_id  String
   week_day Int

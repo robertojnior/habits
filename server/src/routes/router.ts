@@ -2,6 +2,6 @@ import type { FastifyInstance } from 'fastify'
 
 import { goals } from './goals'
 
-export async function routes(fastify: FastifyInstance) {
-  fastify.register(goals, { prefix: '/goals' })
+export async function routes(app: FastifyInstance) {
+  app.register(goals, { prefix: '/goals' })
 }
