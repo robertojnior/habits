@@ -1,12 +1,40 @@
 import type { FastifyInstance } from 'fastify'
 
+import dayjs from 'dayjs'
 import { z } from 'zod'
 
 import { prisma } from '../db/prisma'
 
 export async function goals(app: FastifyInstance) {
   app.get('/', async (request, reply) => {
-    const goals = await prisma.goal.findMany()
+    const queryParamsSchema = z.object({
+      date: z.coerce.date()
+    })
+
+    const { date } = queryParamsSchema.parse(request.query)
+
+    const endOfTheDay = dayjs(date).endOf('day').toDate()
+    const week_day = dayjs(date).get('day') + 1
+
+    const goals = await prisma.goal.findMany({
+      where: {
+        created_at: {
+          lte: endOfTheDay
+        },
+        recurrences: {
+          some: {
+            week_day
+          }
+        }
+      },
+      include: {
+        dailyRecords: {
+          where: {
+            week_day
+          }
+        }
+      }
+    })
 
     return reply.header('X-Total-Count', goals.length).send(goals)
   })
