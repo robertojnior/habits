@@ -15,7 +15,18 @@ async function main() {
       data: {
         description: 'Walk the Dog',
         recurrences: {
-          create: [{ week_day: 5 }, { week_day: 6 }]
+          create: [
+            { week_day: 0 },
+            { week_day: 1 },
+            { week_day: 2 },
+            { week_day: 3 },
+            { week_day: 4 },
+            { week_day: 5 },
+            { week_day: 6 }
+          ]
+        },
+        dailyRecords: {
+          create: [{ week_day: 1 }, { week_day: 5 }]
         }
       }
     }),
@@ -29,12 +40,16 @@ async function main() {
             { week_day: 2 },
             { week_day: 3 },
             { week_day: 4 },
-            { week_day: 5 },
-            { week_day: 6 }
+            { week_day: 5 }
           ]
         },
         dailyRecords: {
-          create: [{ week_day: 1 }, { week_day: 2 }]
+          create: [
+            { week_day: 1 },
+            { week_day: 2 },
+            { week_day: 4 },
+            { week_day: 5 }
+          ]
         }
       }
     }),
@@ -44,6 +59,7 @@ async function main() {
         description: 'Drink Water',
         recurrences: {
           create: [
+            { week_day: 0 },
             { week_day: 1 },
             { week_day: 2 },
             { week_day: 3 },
@@ -53,7 +69,52 @@ async function main() {
           ]
         },
         dailyRecords: {
-          create: [{ week_day: 1 }, { week_day: 2 }]
+          create: [
+            { week_day: 0 },
+            { week_day: 1 },
+            { week_day: 2 },
+            { week_day: 3 },
+            { week_day: 4 },
+            { week_day: 5 }
+          ]
+        }
+      }
+    }),
+
+    prisma.habit.create({
+      data: {
+        description: 'Study Rust',
+        recurrences: {
+          create: [
+            { week_day: 1 },
+            { week_day: 2 },
+            { week_day: 3 },
+            { week_day: 4 },
+            { week_day: 5 }
+          ]
+        },
+        dailyRecords: {
+          create: [{ week_day: 1 }, { week_day: 3 }]
+        }
+      }
+    }),
+
+    prisma.habit.create({
+      data: {
+        description: 'Read The Hobbit',
+        recurrences: {
+          create: [
+            { week_day: 0 },
+            { week_day: 1 },
+            { week_day: 2 },
+            { week_day: 3 },
+            { week_day: 4 },
+            { week_day: 5 },
+            { week_day: 6 }
+          ]
+        },
+        dailyRecords: {
+          create: [{ week_day: 0 }]
         }
       }
     })
